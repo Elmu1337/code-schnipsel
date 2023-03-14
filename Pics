@@ -1,0 +1,13 @@
+<div class="headline">
+                <p>Die Beteiligten</p>
+            </div>
+        <section>   
+            <div class="userCard"><p>Liam</p></div>
+            <div class="userCard"><p>Beno</p>
+        <image class="User_Pics" src="/images/Bene.jpg">
+
+        </div>
+            <div class="userCard"><p>Adi</p>
+            <image class="User_Pics" src="/images/Arti einfach arti.jpg">
+        </div>
+        </section> 
