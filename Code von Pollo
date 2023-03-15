@@ -1,0 +1,61 @@
+(function ($) {
+	$.fn.isOnScreen = function(offsetadd) {
+		
+		if(!offsetadd) {
+			offsetadd = 0;
+		}
+		offsetadd = OffsetAdder(offsetadd);
+	
+		var win = jQuery(window);
+		var viewport = {
+			top : win.scrollTop(),
+			left : win.scrollLeft()
+		};
+		viewport.right = viewport.left + win.width();
+		viewport.bottom = viewport.top + win.height();
+		var bounds = this.offset();
+		bounds.right = bounds.left + this.outerWidth();
+		bounds.bottom = bounds.top-offsetadd + this.outerHeight();
+		
+		return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+		
+	};
+})(jQuery);
+/* / Element im Viewportbereich */
+
+
+/*  HILFSFUNKTION für Scrollen des Inhalts bis Unterkante FIXIERTER Header / */
+function OffsetAdder(o) {
+	var pageheaderheight = $('.header').height();
+	
+	if(!o) {
+		offsetadd = 0;
+	}
+	else {
+		offsetadd = o;
+	}
+	if($('.floatelement').length) {
+		chooserheigth = $('.floatelement').height();
+		offsetadd = offsetadd + chooserheigth;
+	}
+	else {
+		offsetadd = offsetadd + pageheaderheight;
+	}
+	return offsetadd;
+}
+/* / HILFSFUNKTION für Scrollen des Inhalts bis Unterkante FIXIERTER Header */
+
+var lastScrollTop = 0;
+function Header() {
+	st = $(this).scrollTop();
+	if(st < lastScrollTop && $(window).scrollTop() <= 200) {
+		$('body').removeClass('scrolly');
+	}
+	else if(st >= lastScrollTop && $(window).scrollTop() > 200) {
+		$('body').addClass('scrolly');
+	}
+	lastScrollTop = st;
+}
+$(window).scroll(function(){
+	Header();
+});
